@@ -3,6 +3,8 @@ const server = express();
 const cors = require('cors');
 const { uuid } = require('uuidv4');
 
+const database = require('./database');
+
 server.use(cors())
 server.use(express.json())
 
