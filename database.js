@@ -42,11 +42,11 @@ module.exports = {
     },
 
     async tagexist(tag_number) {
-        const sql = `SELECT tag_number FROM credentials WHERE tag_number = $1`;
+        const sql = `SELECT privilege FROM credentials WHERE tag_number = $1`;
         const result = await pool.query(sql, [tag_number]);
         //print(result);
         if (result.rows[0] != null) {
-            return result.rows[0].tag_number;
+            return result.rows[0].privilege;
         }
         else {
             return null;
