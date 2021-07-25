@@ -9,7 +9,8 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false }
 });
 
-// const script = 'CREATE TABLE IF NOT EXISTS credentials( uuid char(36) not null, tag_number char(11) not null, user_name varchar(50), constraint user_pk_uuid primary key(uuid) )'
+// const script = 'CREATE TABLE IF NOT EXISTS credentials( uuid char(36) not null, tag_number char(11) not null, user_name varchar(50), privilege int not null, constraint uuid_pk primary key(uuid), constraint tag_number_uk unique(tag_number), constraint privilege_ck check(privilege in (0,1)) )'
+// const script = 'DROP TABLE credentials';
 
 // pool.query(script, function (error, result) {
 //     if (error)
@@ -25,10 +26,12 @@ module.exports = {
         return result.rows;
     },
 
-    async createTag(uuid, tag_number, user_name) {
+    async createTag(uuid, tag_number, user_name, privilege) {
         try {
-            const sql = `INSERT INTO credentials (uuid, tag_number, user_name) VALUES ($1, $2, $3) `;
-            const result = await pool.query(sql, [uuid, tag_number, user_name]);
+
+            //privilege 0 (usuário comum), 1 (usuário privilegiado)
+            const sql = `INSERT INTO credentials (uuid, tag_number, user_name, privilege) VALUES ($1, $2, $3, $4) `;
+            const result = await pool.query(sql, [uuid, tag_number, user_name, privilege]);
 
             return result.rows;
 

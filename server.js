@@ -17,7 +17,8 @@ server.post('/createtag', async function (request, response) {
     const uuid1 = uuid();
     const tag_number = request.body.tag_number;
     const user_name = request.body.user_name;
-    const resposta = await database.createTag(uuid1, tag_number, user_name);
+    const privilege = request.body.privilege;
+    const resposta = await database.createTag(uuid1, tag_number, user_name, privilege);
     response.status(200).send();
 })
 
