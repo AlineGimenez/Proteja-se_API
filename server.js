@@ -43,7 +43,7 @@ server.get('/solicitartemperatura', async function (request, response) {
     //o endpoint deve ficar aguardando uma resposta do MLX90614, no qual o ESP32 deve retornar a temperatura pelo body da requisição da API
     //Porteiormente, esse método deve retornar ao app do Flutter pelo body a temperatura
 
-    response.json("Conexão com a API concluida");
+    response.json(37.5);
 
     /*if (resultado != null) {
         response.json(resultado);
