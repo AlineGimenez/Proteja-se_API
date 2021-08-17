@@ -32,4 +32,24 @@ server.post('/tagexist', async function (request, response) {
         response.status(401).send();
 })
 
+server.get('/solicitartemperatura', async function (request, response) {
+    //API deve solicitar ao ESP32 que colete a temperatura pelo MLX90614
+    //Após o ESP32 ter coletado a temperatura, o mesmo deve mandar (bater na API) por um endpoint que salvará em uma variável global a temperatura
+    //Enquanto isso o app Flutter deve ficar escutando essa variável
+    //Após se encerrar o processo, o ESP32 deve bater na API pedindo que zere as variáveis globais.
+
+    //OU
+    //API deve solicitar ao ESP32 que colete a temperatura pelo MLX90614
+    //o endpoint deve ficar aguardando uma resposta do MLX90614, no qual o ESP32 deve retornar a temperatura pelo body da requisição da API
+    //Porteiormente, esse método deve retornar ao app do Flutter pelo body a temperatura
+
+    response.json("Conexão com a API concluida");
+
+    /*if (resultado != null) {
+        response.json(resultado);
+    }
+    else
+        response.status(401).send();*/
+})
+
 server.listen(process.env.PORT || 3000);
