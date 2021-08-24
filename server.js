@@ -2,11 +2,19 @@ const express = require('express');  // import express;
 const server = express();
 const cors = require('cors');
 const { uuid } = require('uuidv4');
+const https = require('https')
 
 const database = require('./database');
 
 server.use(cors())
 server.use(express.json())
+
+const options = {
+    hostname: 'http://192.168.0.114',//alterar hostname
+    port: 443,
+    path: '/testinho',//alterar endpoint
+    method: 'GET'
+}
 
 server.get('/', async function (request, response) {
     const resultado = await database.readCredentials();
@@ -50,6 +58,20 @@ server.get('/solicitartemperatura', async function (request, response) {
     }
     else
         response.status(401).send();*/
+})
+
+server.get('/testeapi', async function (request, response) {
+    const req = https.request(options, (res) => {
+        console.log(`statusCode: ${res.statusCode}`)
+        res.on('data', (d) => {
+            process.stdout.write(d)
+            response.send(d);
+        })
+    })
+    req.on('error', (error) => {
+        console.error(error)
+    })
+    req.end()
 })
 
 server.listen(process.env.PORT || 3000);
