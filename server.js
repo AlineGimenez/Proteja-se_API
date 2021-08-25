@@ -10,8 +10,8 @@ server.use(cors())
 server.use(express.json())
 
 const options = {
-    hostname: 'http://192.168.0.114',//alterar hostname
-    port: 443,
+    hostname: 'protejase.hopto.org',//alterar hostname
+    port: 80,
     path: '/testinho',//alterar endpoint
     method: 'GET'
 }
